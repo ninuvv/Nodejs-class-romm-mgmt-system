@@ -1,0 +1,86 @@
+<div class="container mt-5  ">
+
+    <h1 class="text-center">Profile</h1>
+    <div class="row justify-content-center">
+
+
+        <form action="/tutor/tutorProfile/{{tutorDetails._id}}" id="formType" method="POST" enctype="multipart/form-data">
+
+
+            <div class="float-right ml-4 clearfix">
+                <img src="/profile_photo/{{tutorDetails._id}}.jpg" style="width:100px ; height:auto;" class="pt-3"
+                    alt="" id="imgView">
+                <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg"
+                    onchange="viewImage(event)">
+            </div>
+
+
+            <div class="form-group float-left " style="    width: 93%;clear: both;">
+                <label>Name</label>
+                <input type="text" class="form-control" name="name" value="{{tutorDetails.name}}">
+
+
+                <label>job</label>
+                <input type="text" class="form-control" name="job" value="{{tutorDetails.job}}">
+
+
+                <label>Class</label>
+
+                <input type="text" class="form-control" name="class" value="{{tutorDetails.class}}">
+
+
+                <label>Address</label>
+                <textarea name="address" class="form-control" cols="10" rows="3"> {{tutorDetails.address}}</textarea>
+
+
+                <label>Email</label>
+
+                <input type="email" class="form-control" name="email" value="{{tutorDetails.email}}">
+
+
+                <label>Mobile</label>
+
+                <input type="tel" class="form-control" name="mob" value="{{tutorDetails.mob}}">
+                <div class="col-sm-12 mt-3"style="text-align:center" >
+                    <button type="submit" id="loginbtn" class="btn btn-primary"
+                        onclick="return CheckFileName()">Edit</button>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+    function CheckFileName() {
+
+        var fileName = document.getElementById("Image").value
+        if (fileName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "JPG")
+                return true;
+            else if (fileName.split(".")[1].toUpperCase() == "PNG")
+                return true;
+
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with JPG/PNG extensions");
+                return false;
+            }
+        }
+        return true;
+    }
+</script>

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row justify-content-center " style="background-color: #ffffffad">
+        <div class="col-sm-12 col-md-12 mt-3">
+            {{#each annoucementDetails}}
+            <div class="border border-secondary rounded mt-2">
+                <h3>Annoucemts:</h3>
+                <h4 style="text-align: center;">{{this.name}}</h4>
+            </div>
+            <div class="border border-secondary rounded mt-2">
+                <h3>Description:</h3>
+                <h4 style="text-align: center;">{{this.desc}}</h4>
+            </div>
+            <div class="d-flex flex-wrap  border border-secondary rounded mt-2">
+                {{#if this.pdffilename}}
+                <div class="embed-responsive embed-responsive-1by1"  style="width:47%; height: 19.5rem;">
+
+                    <iframe class="embed-responsive-item" src="/annoucementsPdf/{{this._id}}.pdf">
+                    </iframe>
+                </div>
+                {{/if}}
+
+
+                {{#if this.videofilename}}
+                <div class="embed-responsive embed-responsive-4by3 ml-3"style="width:47%; height: 19.5rem;">
+                     <iframe class="embed-responsive-item" src="/annoucementsVideo/{{this._id}}.mp4"></iframe>
+                    {{!-- <video id="notevideo" width="520" height="240" controls>
+                        <source src="/annoucementsVideo/{{this._id}}.mp4" type="video/mp4"></video> --}}
+                </div>
+                {{/if}}
+
+                {{#if this.imagefilename}}               
+                    <img class="img-responsive" src="/annoucementsImage/{{this._id}}.jpg" style=" height:19.5rem;" alt="">
+               
+                {{/if}}
+
+            </div>
+
+            {{/each}}
+
+
+
+        </div>
+    </div>

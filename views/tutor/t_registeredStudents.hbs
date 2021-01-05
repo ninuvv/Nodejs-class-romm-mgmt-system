@@ -1,0 +1,87 @@
+<div class="container mt-3 ">
+    <h1 style="text-align: center;">Registered Students </h1>
+    <div class="row justify-content-center">
+        <div class="form-group">
+
+
+            <select onchange="eventChange()" class="form-control" name="eventId" id="eventId">
+
+                <label for="">Events</label>
+                <option value="0">Select Event</option>
+                {{#each events}}
+                <option value="{{this._id}}">{{this.event}}</option>
+                {{/each}}
+
+            </select>
+
+        </div>
+        <table class="table mt-5" id="team-list">
+            <thead>
+                <tr>
+                    <th scope="col">Sl_no</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Student name</th>
+                    <th scope="col">Method</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
+<script>
+
+
+    function eventChange() {
+
+        var eventId = document.getElementById("eventId").value
+
+        /*  var d = new Date(changedate);
+           var changedate = d.setHours(0,0,0,0);*/
+
+        $.ajax({
+            url: '/tutor/t_loadregisteredStudents',
+            method: 'post',
+            data: {
+                eventId: eventId
+
+            },
+            success: (response) => {
+
+                $('tbody').empty();
+                var trHTML = '';
+               
+                $.each(response, function (i, item) {
+                    trHTML += '<tr><td></td><td>' + item.date + '</td><td>' + item.student.first_name + '</td><td>' + item.method + '</td></tr>';
+                });
+                $('#tbody').append(trHTML);
+
+                function dateFormat(d) {
+                    return  d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear()
+                    //dateFormat(new Date(parseInt((item.date).match(/\d+/)[0]))) 
+                    /*console.log(d.toLocaleDateString());
+                    return ((d.getMonth() + 1) + "").padStart(2, "0")
+                        + "/" + (d.getDate() + "").padStart(2, "0")
+                        + "/" + d.getFullYear();*/
+                }
+
+
+            }
+        })
+
+
+
+    }
+</script>

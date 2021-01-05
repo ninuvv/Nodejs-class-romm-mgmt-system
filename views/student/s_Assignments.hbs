@@ -1,0 +1,91 @@
+<div class="container mt-3 ">
+    <h1 style="text-align: center;">Assignment</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-3">
+            <form action="/student/s_Assignments" id="formType" class="assgin" method="POST"
+                enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="">Topic</label>
+
+                    <select class="form-control" name="assginId" id="assginId">
+                        <option value="0">Select Topic</option>
+                        {{#each topic}}
+                        <option value="{{this._id}}">{{this.topic}}</option>
+                        {{/each}}
+                    </select>
+
+                </div>
+                <input type="text" name="studId" id="" value="{{studentDetails._id}}" hidden>
+                <div class="form-group">
+                    <label for="">File to Upload</label>
+                    <input type="file" class="form-control" name="assignmentfile" id="uploadFile"
+                        accept="application/pdf" required>
+                </div>
+
+                <div class="col-sm-12" style="text-align:center">
+                    <button type="submit" id="loginbtn" class="btn btn-primary"
+                        onclick="return CheckFileName()">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+        <table class="table mt-5 ml-5" id="team-list">
+            <thead>
+                <tr>
+                    <th scope="col">Sl_no</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Topic</th>
+                    <th scope="col">file name</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each assignments}}
+                <tr>
+                    <td></td>
+                    <td>{{formatTime this.date "DD-MMM-YYYY" }}</td>
+                    {{#each assignName}}
+                    <td>{{this.topic}}</td>
+                    {{/each}}
+                    <td>{{this.fileName}}</td>
+
+                    <td>
+                        <a href="s_delAssignment/{{this.attendId}}" class="btn btn-danger"
+                            onclick=" return confirm('Are you want to delete {{this.fileName}} id:{{this.attendId}}')">Delete</a>
+                        {{!-- <a href="admin/del_products ?id={{this._id}}&name=ninu" class="btn btn-primary">Delete</a>
+                        --}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
+
+<script>
+    function CheckFileName() {
+        var topic = document.getElementById("assginId").value
+        console.log(topic)
+        if (topic == '0') {
+            alert("Please select Topic")
+            return false;
+        }
+        var fileName = document.getElementById("uploadFile").value
+        if (fileName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "PDF")
+                return true;
+
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with PDF extensions");
+                return false;
+            }
+            return true;
+        }
+    }
+
+</script>

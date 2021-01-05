@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Sura&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Sura', serif;
+}
+/* .logo {
+   
+    padding: 62px;
+    margin: 6px;
+    background-image: url(../images/logo3.png)   
+   
+} */
+
+ 
+ body{
+    /* height: 190vh; */
+    /* max-height: max-content; */
+    max-width: 100%;
+    margin: 0;
+    /* width: 100vw; */
+    min-height: 100vh;
+     /* background: url("../images/bg2.jpg") no-repeat center center/cover; */
+ }
+ /* section{
+  background: url("../images/bg2.jpg") no-repeat center center/cover;
+ } */
+  /* .h-primary{
+    background: url("../images/bg2.jpg") no-repeat center center/cover;
+  } */
+  #tutor_img{
+    height: 27rem;
+  }
+
+#tutorForm{
+      margin-top: 35px;
+  width: 75%;
+  font-weight: bold;
+  font-size: medium;
+}
+
+label{
+  font-weight: bold;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: #4CAF50;
+}
+
+/* chat room */
+.message{
+  background: #192a6a;
+  font-size: 1rem;
+  color:#ffc107;
+  padding: 5px 40px;
+  margin: 10px 0px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.left{
+  float: left;
+  clear: both;
+
+}
+.right{
+float:right;
+clear: both;
+}
+#msgInp{
+  border: 2px solid black;
+  /* margin: auto; */
+  width: 59%;
+  padding: 7px 26px;
+}
+.containerBox{
+  background-color: #ffffffad;
+  height: 60vh;
+  border: 2px solid black;
+  overflow-y: auto;
+  margin: auto;
+  width: 80%;
+}
+
+
+/* .maincontainer{
+  max-width: 600px;
+  background-color: #ad3c3cad;
+} */
+
+/* @media screen and (max-width: 400px) {
+.maincontainer{
+  max-width: 600px;
+  background-color: #ad3c3cad;
+}
+ 
+} */
+
+
+@media only screen and (min-width: 1240px)   {
+  .container {
+    /* background-color: rgb(7, 85, 13); */
+    max-width: 1006px;
+    margin: 0px 200px;
+  
+  }
+  
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1239px) {
+  .container {
+    /* background-color: rgb(35, 24, 61); */
+    max-width: 772px;
+    margin: 0px 200px;
+  
+  }
+  
+}
+
+
+
+@media only screen and (min-width: 699px) and (max-width: 991px){
+.container  {
+  /* background-color: rgb(128, 136, 10); */
+    max-width: 479px;
+    margin: 0 200px;
+}
+}
+
+/* @media (min-width: 576px) and (max-width:700px){
+  .container  {
+    background-color: rgb(32, 32, 30);
+      max-width:540px;
+     
+  }
+
+} */

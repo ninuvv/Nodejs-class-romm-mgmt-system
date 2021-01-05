@@ -1,0 +1,86 @@
+<div class="container">
+    <h1 style="text-align: center;">Archeive Notes</h1>
+    <div class="row">
+
+        <div class="col-12">
+
+            <table class="table mt-5" id="team-list" style="overflow: scroll;">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl_no</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Video</th>
+                        <th scope="col">pdf</th>
+                        <th scope="col">Youtube</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each notes}}
+
+                    <tr>
+                        <td></td>
+                        <td>{{formatTime this.date "DD-MMM-YYYY" }}</td>
+                        <td>{{this.topic}}</td>
+                        <td>
+
+                            <div class="embed-responsive embed-responsive-1by1">
+
+                                <video id="notevideo" width="520" height="150" controls>
+                                    <source src="/notevideo/{{this._id}}.mp4" type="video/mp4">
+                                </video>
+                            </div>
+
+
+                        </td>
+                        <td>
+                            <div class="embed-responsive embed-responsive-1by1">                              
+                                <a style="color:black " href="/notefile/{{this._id}}.pdf"> {{this.fileName}}</a>
+                            </div>
+
+
+                        </td>
+                        <td>
+                            <div class="embed-responsive embed-responsive-1by1">
+
+                                <iframe class="embed-responsive-item" src="{{this.youtubeLink}}" frameborder="0"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            {{!-- <iframe width="320" height="150" src="{{this.youtubeLink}}" frameborder="0"
+                                allowfullscreen></iframe> --}}
+                        </td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#team-list').DataTable();
+    });
+
+    function markAttendence(studentId) {
+
+    }
+
+
+
+
+
+</script>

@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row mx-auto ">
+        <div class="col-md-12  border-secondary rounded mt-5 ">
+            <h2 style="text-align: center;">Our Mission</h2>
+            <p style="text-align: center;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, ex illo!
+                Nesciunt dolores laborum libero
+                unde? Quasi reprehenderit aliquam officiis ex, molestiae laboriosam fugiat! Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. </p>
+        </div>
+        <div class="col-md-6">
+            {{!-- <div class="row"> --}}
+                <div style="height: 50vh" class="col-md-12  border border-secondary rounded mt-2 ">
+                    <h3 style="text-align: center;">Annoucemnets</h3>
+
+                    {{#each annoucements}}
+                    <ul>
+                        <li style="margin-left: 49px;"><a href="t_viewAnnoucementDetails/{{this._id}}">{{this.name}}</a>
+                        </li>
+                    </ul>
+
+
+                    {{/each}}
+
+                </div>
+
+
+                {{!--
+            </div> --}}
+
+        </div>
+        <div class="col-md-6">
+            <div style="height: 50vh" class=" col-md-12  border border-secondary rounded mt-2 ">
+              
+                    <h3 style="text-align: center;">Events</h3>
+                    {{#each events}}
+                    <ul>
+                        <li style="margin-left: 49px;">
+                            <a href="t_loadEvent/{{this._id}}"> {{this.event}}</a>
+                        </li>
+                    </ul>
+
+
+                    {{/each}}
+               
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

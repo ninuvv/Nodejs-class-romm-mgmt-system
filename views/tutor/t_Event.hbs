@@ -1,0 +1,192 @@
+<div class="container mt-5  ">
+  <h1 class="text-center">Events</h1>
+  <div class="row justify-content-center ">
+
+    <div class="col-12 col-md-12">
+      <form action="" method="POST" class="eventform" id="formType" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Event</label>
+          <input type="text" class="form-control" name="event" id="event" required>
+
+        </div>
+
+        <div class="form-group">
+          <label>Conducted By</label>
+          <input type="text" class="form-control" name="conductby" id="conductby">
+
+        </div>
+
+        <div class="form-group">
+          <label>Topic</label>
+          <input type="text" class="form-control" name="topic" id="topic" required>
+
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="myCheck" onclick="myFunction()">
+          <label class="form-check-label">Paid(Enter Amount)</label>
+          <input type="text" class="form-control" name="amount" id="amount" disabled>
+
+        </div>
+
+        <div class="form-group">
+          <label>PDF file</label>
+          <input type="file" class="form-control-file" name="loadedPdfFile" id="loadedPdfFile" accept="application/pdf">
+        </div>
+        <div class="form-group">
+          <label>Image file</label>
+          <input type="file" class="form-control-file" name="loadedImageFile" id="loadedImageFile" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label>video file</label>
+          <input type="file" class="form-control-file" name="loadedvideoFile" id="loadedvideoFile" accept="video/mp4">
+        </div>
+
+        <div id="progress">
+          <div id="progressbar"></div>
+        </div>
+
+        <div class="progress" style="display: none;">
+          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+            style="width:0% ">
+            <span class="sr-only">70% Complete</span>
+          </div>
+        </div>
+
+        <div id="uploadStatus"> </div>
+
+        <div class="col-sm-12" style="text-align:center">
+          <button type="submit" onclick= "return checkAmt()"id="loginbtn" class="btn btn-primary">Submit</button>
+        </div>
+
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  function checkAmt(){
+    var checkBox = document.getElementById("myCheck");
+     var text = document.getElementById("amount");
+      if (checkBox.checked == true && text==0){
+            alert("amount not entered")
+            return false;
+        }
+  }
+  function myFunction() {
+        // Get the checkbox
+        var checkBox = document.getElementById("myCheck");
+        // Get the output text
+        var text = document.getElementById("amount");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true) {
+            document.getElementById("amount").disabled = false;
+        } else {
+            document.getElementById("amount").disabled = true;
+            document.getElementById("amount").value = 0;
+        }
+    }
+
+
+  $(document).ready(function () {
+    // File upload via Ajax
+    $(".eventform").on('submit', function (e) {
+      e.preventDefault();
+      $('#uploadStatus').html("")
+      $(".progress").css("display", "none");
+
+      var formData = new FormData()
+      formData.append('event', document.getElementById("event").value)     // the text data
+      formData.append('conductby', document.getElementById("conductby").value)     // the text data
+      formData.append('topic', document.getElementById("topic").value)     // the text data
+       formData.append('amount', document.getElementById("amount").value)     // the text data
+
+
+
+
+      var pdf = document.getElementById("loadedPdfFile").files[0];
+      if (pdf) {
+        formData.append('loadedPdfFile', document.getElementById('loadedPdfFile').files[0]) // since inputs allow multi files submission, therefore files are in array
+      }
+
+      var image = document.getElementById("loadedImageFile").files[0];
+      if (image) {
+        formData.append('loadedImageFile', document.getElementById('loadedImageFile').files[0])
+      }
+
+
+      var video = document.getElementById("loadedvideoFile").files[0];
+      if (video) {
+        formData.append('loadedvideoFile', document.getElementById('loadedvideoFile').files[0])
+      }
+
+
+      $.ajax({
+
+        xhr: function () {
+          // if (video) {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener("progress", function (evt) {
+            if (evt.lengthComputable) {
+              var percentComplete = ((evt.loaded / evt.total) * 100);
+              if (video) {
+                $(".progress").css("display", "block");
+                $(".progress-bar").width(percentComplete + '%')
+                $(".progress-bar").html(percentComplete + '%');
+              } else {
+                $(".progress").css("display", "none");
+              }
+              //$("#progressbar").width(percentComplete + '%');
+              // $("#progressbar").html(percentComplete + '%');
+            }
+          }, false);
+          // }
+
+          return xhr;
+        },
+        type: 'POST',
+        url: '/tutor/t_Event',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        beforeSend: function () {
+          $(".progress").css("display", "block");
+          $(".progress-bar").width(0 + '%')
+          // $('#uploadStatus').html('<img src="/loading.gif"/>');
+
+
+        },
+        error: function () {
+          $('#uploadStatus').html('<p style="color:#EA4335;">File upload failed, please try again.</p>');
+        },
+        success: function (resp) {
+          if (resp) {
+            $('.eventform')[0].reset();
+            $('#uploadStatus').html('<p style="color:#28A74B;">File has uploaded successfully!</p>');
+          } else if (resp == 'err') {
+            $('.eventform').html('<p style="color:#EA4335;">Please select a valid file to upload.</p>');
+          }
+        }
+      });
+    });
+
+    // File type validation
+    $("#loadedPdfFile").change(function () {
+      var allowedTypes = ['application/pdf'];
+      // var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.ms-office', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+      var file = this.files[0];
+      var fileType = file.type;
+      if (!allowedTypes.includes(fileType)) {
+        //alert('Please select a valid file (PDF/DOC/DOCX/JPEG/JPG/PNG/GIF).');
+        alert('Please select a valid file (PDF).');
+        $("#loadedPdfFile").val('');
+        return false;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,53 @@
+<div class="container">
+    <h1 style="text-align: center;">Archeive Assignment</h1>
+    <div class="row">
+        <div class="col-12">
+
+            <table class="table mt-5" id="team-list">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl_no</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">file name</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each TaskAssignment}}
+                    <tr>
+                        <td></td>
+                        <td>{{formatTime this.date "DD-MMM-YYYY" }}</td>
+                        <td>{{this.topic}}</td>
+
+                        <td>
+                            <a style="color:black" href="/assignments/{{this._id}}.pdf"> {{this.fileName}}</a>
+                        </td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#team-list').DataTable();
+    });
+
+    function markAttendence(studentId) {
+
+    }
+
+
+
+
+
+</script>

@@ -1,0 +1,63 @@
+<div class="container">
+
+    <div class="row justify-content-center " style="background-color: #ffffffad">
+
+        <div class="col-sm-12 col-md-12 mt-3">
+            {{#each eventDetails}}
+            {{!-- <div class="row mt-5 " style="margin-bottom: 10px;">
+
+                <a href="/tutor/t_sponsership/{{this._id}}" class="btn btn-edit ml-auto"> Sponsers Click Here</a>
+            </div> --}}
+            <div class="border border-secondary rounded mt-2">
+                <h3>Events:</h3>
+                <h4 style="text-align: center;">{{this.event}}</h4>
+            </div>
+            <div class="border border-secondary rounded mt-2">
+                <h3>Conducted by:</h3>
+                <h4 style="text-align: center;">{{this.conductby}}</h4>
+            </div>
+            <div class="border border-secondary rounded mt-2">
+                <h3>Topic:</h3>
+                <h4 style="text-align: center;">{{this.topic}}</h4>
+            </div>
+             {{#if this.amount}}
+            <div class="border border-secondary rounded mt-2">
+                <h3>Amount:</h3>
+                <h4 style="text-align: center;">{{this.amount}}</h4>
+            </div>
+            {{/if}}
+            <div class="d-flex flex-wrap  border border-secondary rounded mt-2">
+                {{#if this.pdffilename}}
+                <div>
+
+                    <iframe src="/PDFfiles/{{this._id}}.pdf" width="520" height="240">
+                    </iframe>
+
+
+                </div>
+                {{/if}}
+
+
+                {{#if this.videofilename}}
+                <div class="ml-3">
+                    <video id="notevideo" width="520" height="240" controls>
+                        <source src="/Videofiles/{{this._id}}.mp4" type="video/mp4">
+                    </video>
+                </div>
+                {{/if}}
+
+
+                {{#if this.imagefilename}}
+                <div class="mt-3">
+                    <img src="/Imagefiles/{{this._id}}.jpg" width="520" height="240" alt="">
+                </div>
+                {{/if}}
+
+            </div>
+
+            {{/each}}
+
+
+
+        </div>
+    </div>

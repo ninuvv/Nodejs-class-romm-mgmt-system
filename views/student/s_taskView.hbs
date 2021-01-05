@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+
+            <h1 style="text-align: center;">Notes</h1>
+            {{#each notes}}
+
+            <h4>{{findex @index }}. {{toUpperCase this.topic}}</h4>
+            <ul>
+
+                {{#if this.youtubeLink}}
+
+                <div class="mt-3">
+                    <iframe width="520" height="250" src="{{this.youtubeLink}}" frameborder="0"
+                        allowfullscreen></iframe>
+
+                </div>
+                {{/if}}
+
+                {{#if this.fileName}}
+                {{!-- <li class="ml-5"> --}}
+                    <div class="mt-3">
+                        <div class="embed-responsive embed-responsive-1by1" style="    width: 81%; height: 26rem;">
+                            <iframe  class="embed-responsive-item" src="/notefile/{{this._id}}.pdf">
+                            </iframe>
+                           
+                        </div>
+                        {{!-- <a style="color:black " href="/notefile/{{this._id}}.pdf"> <strong>{{this.fileName}}
+                            </strong></a> --}}
+                    </div>
+                {{!-- </li> --}}
+                {{/if}}
+
+                {{#if this.videoNmae}}
+                <div class="mt-3">
+                    <video onPlay="markAttendence('{{../studentDetails._id}}')" id="notevideo" width="520" height="240"
+                        controls>
+                        <source src="/notevideo/{{this._id}}.mp4" type="video/mp4">
+                    </video>
+                </div>
+                {{/if}}
+
+            </ul>
+
+
+            {{/each}}
+
+        </div>
+
+
+
+
+
+
+        <div class="col-md-4">
+            <div class="row">
+                <h1 style="text-align: center;">Assignment</h1>
+                <table class="table mt-5" id="team-list">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl_no</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">file name</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each TaskAssignment}}
+                        <tr>
+                            <td></td>
+                            <td>{{this.topic}}</td>
+
+                            <td>
+                                <a style="color:black" href="/assignments/{{this._id}}.pdf"> {{this.fileName}}</a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+
+    function markAttendence(studentId) {
+
+        console.log("stdddd" + studentId)
+
+        var vid = document.getElementById("notevideo");
+        vid.onplaying = function () {
+
+            $.ajax({
+                url: '/student/markAttendence',
+                method: 'post',
+                data: {
+                    studId: studentId
+
+                },
+                success: (response) => {
+                    console.log("res" + response)
+
+                }
+            })
+
+        };
+    }
+
+
+
+
+
+</script>

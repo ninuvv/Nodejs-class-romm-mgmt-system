@@ -1,0 +1,230 @@
+<div class="container">
+
+    <div class="row justify-content-center ">
+
+
+        <div class="col-sm-12 col-md-12 mt-3" style="background-color: #ffffffc9">
+            {{#each eventDetails}}
+
+            <div class="border border-secondary rounded mt-2">
+                <h3> Events: {{this.event}} </h3>
+
+
+                <h3>Conducted by: {{this.conductby}} </h3>
+                           
+                <h3>Topic:{{this.topic}}</h3>
+
+            </div>
+            {{#if this.amount}}
+            <div class="border border-secondary rounded mt-2">
+                <h3>Amount:<input type="text" class="mt-1" value={{this.amount}} readonly> </h3>
+                <input type="text" value={{../Done}} name="count" id="count" hidden >
+
+
+                <div style="display: flex;">
+                    <form action="/student/s_paidStudentEvent" id="paidForm" method="post">
+                        <p hidden>
+                            Payment Method :
+                            <input type="radio" name="method" value="razorpay" checked>Razorpay
+                            <input type="radio" name="method" value="paypal">paypal
+                        </p>
+                        <input type="text" class="mt-1" value={{this.amount}} name="amount" id="amount" hidden>
+                        <input type="text" value={{../studentDetails._id}} name="studId" id="studId" hidden>
+                        <input type="text" value={{this._id}} name="eventId" id="eventId" hidden>
+                        <button type="submit" style=" padding: 6px 104px;" id="loginbtn"
+                            class="btn btn-primary upload-btn mt-3">
+                            RazorPay</button>
+
+                    </form>
+                    <form action="/student/s_payPal" method="post">
+                        <div class="form-group">
+                            <p hidden>
+                                Payment Method :
+                                <input type="radio" name="method" value="razorpay">Razorpay
+                                <input type="radio" name="method" value="paypal" checked>paypal
+                            </p>
+
+                            <button type="submit" onclick="return checkDone()" style=" padding: 6px 104px;"
+                                id="loginbtn" class="btn btn-primary upload-btn mt-3">
+                                PayPal</button>
+                            {{!-- <div id="paypal-button"></div> --}}
+
+                            <input type="text" class="mt-1" value={{this.amount}} name="amount" id="amount" hidden>
+                            <input type="text" value={{../studentDetails._id}} name="studId" id="studId" hidden>
+                            <input type="text" value={{this._id}} name="eventId" id="eventId" hidden>
+
+                        </div>
+                    </form>
+                    <form action="/student/s_paytm" method="post">
+                        <div class="form-group">
+
+                            <p hidden>
+                                Payment Method :
+                                <input type="radio" name="method" value="razorpay">Razorpay
+                                <input type="radio" name="method" value="paypal">paypal
+                                <input type="radio" name="method" value="paytm" checked>paytm
+                            </p>
+
+                            <button type="submit" onclick="return checkDone()" style=" padding: 6px 104px;"
+                                id="loginbtn" class="btn btn-primary upload-btn mt-3">
+                                Paytm</button>
+                            {{!-- <div id="paypal-button"></div> --}}
+
+                            <input type="text" class="mt-1" value={{this.amount}} name="amount" id="amount" hidden>
+                            <input type="text" value={{../studentDetails._id}} name="studId" id="studId" hidden>
+                            <input type="text" value={{this._id}} name="eventId" id="eventId" hidden>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{/if}}
+
+
+
+
+            <div class="d-flex flex-wrap  border border-secondary rounded mt-2">
+                {{#if this.pdffilename}}
+                <div>
+
+                    <iframe src="/PDFfiles/{{this._id}}.pdf" width="520" height="240">
+                    </iframe>
+
+
+                </div>
+                {{/if}}
+
+
+                {{#if this.videofilename}}
+                <div class="ml-3">
+                    <video id="notevideo" width="520" height="240" controls>
+                        <source src="/Videofiles/{{this._id}}.mp4" type="video/mp4">
+                    </video>
+                </div>
+                {{/if}}
+
+
+                {{#if this.imagefilename}}
+                <div class="mt-3">
+                    <img src="/Imagefiles/{{this._id}}.jpg" width="520" height="240" alt="">
+                </div>
+                {{/if}}
+
+            </div>
+
+            {{/each}}
+
+
+
+        </div>
+    </div>
+
+    <script>
+
+        function checkDone(count) {
+            var count = document.getElementById("count").value
+            if (count ==="P") {
+                alert("Already Paid for this Event")
+                return false
+            }
+            else { return true }
+        }
+        /*paypal_sdk.Buttons({
+            env: 'sandbox', // Or 'production'
+            // Set up the payment:
+            // 1. Add a payment callback
+            payment: function (data, actions) {
+                // 2. Make a request to your server
+                return actions.request.post('/my-api/create-payment/')
+                    .then(function (res) {
+                        // 3. Return res.id from the response
+                        return res.id;
+                    });
+            },
+            // Execute the payment:
+            // 1. Add an onAuthorize callback
+            onAuthorize: function (data, actions) {
+                // 2. Make a request to your server
+                return actions.request.post('/my-api/execute-payment/', {
+                    paymentID: data.paymentID,
+                    payerID: data.payerID
+                })
+                    .then(function (res) {
+                        // 3. Show the buyer a confirmation message.
+                    });
+            }
+       }).render('#paypal-button')*/
+
+
+        $("#paidForm").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/student/s_paidStudentEvent',
+                method: 'post',
+                data: $('#paidForm').serialize(),
+                success: (response) => {
+                    // alert(response)
+                    if (response.status) {
+                        // location.href = "/order_success"
+                        razorPayment(response)
+                    }
+                    else {
+                        alert(response)
+                        //  location.href ='/student/studentHome'
+                        // alert("sfsafas")
+                    }
+                }
+            })
+        })
+
+        function razorPayment(order) {
+            var options = {
+                "key": "rzp_test_ADHuiXSjzRk327", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Acme Corp",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    alert(response.razorpay_payment_id);
+                    alert(response.razorpay_order_id);
+                    alert(response.razorpay_signature);
+
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+        function verifyPayment(payment, order) {
+            $.ajax({
+                url: '/student/verifyPayment',
+                method: "post",
+                data: {
+                    payment,
+                    order
+                },
+                success: (response) => {
+                    if (response) {
+                        location.href = '/student/s_orderSuccess'
+                    } else {
+                       location.href ='student/s_paypalcancel'
+                    }
+                }
+
+            })
+        }
+    </script>

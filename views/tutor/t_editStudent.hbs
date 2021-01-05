@@ -1,0 +1,120 @@
+<section>
+    <div class="container">
+        <h2 style="text-align: center;">Edit Student Details</h2>
+
+        {{!-- <div class="float-right">
+                    <img src="/student.jpg" style="width:100px ; height:auto;" class="pt-3" alt="" id="imgView">
+                    <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg" onchange="viewImage(event)">
+                
+                
+                
+                </div> --}}
+        <form action="/tutor/t_editStudent/{{student._id}}" method="POST" id="formType" enctype="multipart/form-data">
+
+            <div class="row mt-5" style="width: 134%;">
+
+                <div class="col-sm-6 col-md-6">
+                    <h4>Registration Number :{{student.regno}} </h4>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="">First Name</label>
+                            <input type="text" class="form-control" name="first_name" value="{{student.first_name}}"
+                                required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value="{{student.last_name}}">
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <textarea class="form-control" name="address" id="" cols="2"
+                            rows="3"> {{student.address}}</textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <p class="font-weight-bold">
+                            Geneder :
+                            {{!-- <input type="radio" id="Female" name="gender" value="female">female
+                            <input type="radio" id="Male" name="gender" value="Male" checked>Male --}}
+                            <input type="radio" id="Female" name="gender" value="Female"  {{setChecked 'Female' student.gender }}  >female
+                            <input type="radio" id="Male" name="gender" value="Male" {{setChecked 'Male' student.gender }}>Male
+                        </p>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="">Contact Number</label>
+                        <input type="tel" class="form-control" name="mob" value="{{student.mob}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" name="email" value="{{student.email}}"
+                            placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Re Enter Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="col-sm-12" style="text-align:center">
+                        <button type="submit" id="loginbtn" onclick="return CheckFileName()"
+                            class="btn btn-primary">Submit</button>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-group col-md-6">
+                        <img src="/profile_photo/{{student._id}}.jpg" style="width:100px ; height:auto;" class="pt-3"
+                            alt="" id="imgView">
+                        <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg"
+                            onchange="viewImage(event)">
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+
+
+
+    </div>
+
+</section>
+
+<script>
+      function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+
+  
+
+    function CheckFileName() {
+        var fileName = document.getElementById("uploadFile").value
+        if (fileName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "JPG")
+                return true;
+            else if (fileName.split(".")[1].toUpperCase() == "PNG")
+                return true;
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with JPG/PNG extensions");
+                return false;
+            }
+            return true;
+        }
+    }
+
+</script>

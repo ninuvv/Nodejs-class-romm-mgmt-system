@@ -1,0 +1,120 @@
+<div class="container mt-3 ">
+    <h1 style="text-align: center;">Sponsership Details</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-3">
+            <form action="" id="formType" class="sponserForm" method="POST" enctype="multipart/form-data">
+                <input type="text" name="eventId" value='{{eventId}}'>
+
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" name="name" id="" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Contact Details</label>
+                    <textarea class="form-control" name="address" id="" cols="10" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Pincode</label>
+                    <input type="text" class="form-control" name="pincode">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Mobille</label>
+                    <input type="tel" class="form-control" name="mob">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Sponser Amount</label>
+                    <input type="text" class="form-control" name="amount">
+                </div>
+                <div class="form-group">
+                    <p>
+                        Method :
+                        <input type="radio" name="method" value="razorpay" checked>Razorpay
+                        <input type="radio" name="method" value="paypal">paypal
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="col-sm-12 mt-3" style="text-align:center">
+                    <button type="submit" id="loginbtn" class="btn btn-primary upload-btn">
+                        Submit</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(".sponserForm").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/tutor/t_sponsership',
+                method: 'post',
+                data: $('.sponserForm').serialize(),
+                success: (response) => {
+                    alert(response)
+                    if (response) {
+                        // location.href = "/order_success"
+                        razorPayment(response)
+                    }
+                }
+            })
+        })
+
+        function razorPayment(order) {
+            var options = {
+                "key": "rzp_test_ADHuiXSjzRk327", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Acme Corp",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    alert(response.razorpay_payment_id);
+                    alert(response.razorpay_order_id);
+                    alert(response.razorpay_signature);
+
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+        function verifyPayment(payment, order) {
+            $.ajax({
+                url: '/tutor/verifyPayment',
+                method: "post",
+                data: {
+                    payment,
+                    order
+                },
+                success:(response)=>{
+                    if(response){
+                        location.href='/tutor/t_orderSuccess'
+                    }else{
+                        alert("Payment Failed")
+                    }
+                }
+
+            })
+        }
+    </script>

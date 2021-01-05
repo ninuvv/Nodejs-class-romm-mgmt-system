@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="/222.png" alt="" class="img-fluid" id="tutor_img">
+        </div>
+        <div class="col-md-6" style="padding: 67px;">
+
+
+
+            <form action="/student/s_checkOTP" id="OTP" method="post">
+                <h2> verify OTP</h2>
+                
+                <div class="form-row mt-5">
+                    {{!-- <input name="requestId"  value="{{ requestId }}">
+             <input name="studentId"  value="{{studentId }}"> --}}
+                    <input name="code" placeholder="Enter code">
+                    <button type="submit" class="btn btn-success float-right" id="loginbtn">verify OTP</button>
+                    {{!-- <input type="text" name="otp" id="otp" placeholder="otp" required> --}}
+                </div>
+
+
+
+
+            </form>
+            <div class="text-danger error">{{otpLoginErr}}</div>
+        </div>
+
+    </div>
+
+</div>

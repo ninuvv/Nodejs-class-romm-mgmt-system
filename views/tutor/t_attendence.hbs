@@ -1,0 +1,85 @@
+<section>
+  <div class="container maincontainer mt-3">
+    <h1 style="text-align: center;">Attendence</h1>
+    <div class="row justify-content-center">
+
+
+
+        <input type="date" onchange="datechange()" value='' name="att_date" min="1997-01-01" max="2030-12-31"
+            id="att_date">
+
+
+        </button>
+        {{!-- {{input type="date" change=(action "myaction" value='target.value')}} --}}
+        <div class="col-sm-12 text-center">
+            <table class="table mt-5" id="team-list">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl_no</th>
+                        <th scope="col">Reg No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">status </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {{#each loadStudents}}
+                    <tr>
+                        <td></td>
+                        <td>{{this.regno}}</td>
+                        <td>{{this.first_name}}</td>
+
+                        <td>
+                            {{#each attendence}}
+
+                            {{!-- {{Check this.attenddate ../../attdate }} --}}
+
+
+                            {{/each}}
+
+                        </td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>  
+</section>
+
+<script>
+
+
+    function datechange() {
+
+        var changedate = document.getElementById("att_date").value
+        alert(changedate)
+        /*  var d = new Date(changedate);
+           var changedate = d.setHours(0,0,0,0);*/
+
+        $.ajax({
+            url: '/tutor/loadStudentAttendence',
+            method: 'post',
+            data: {
+                changedate: changedate
+
+            },
+            success: (response) => {
+                console.log("P" + response)
+                $('tbody').empty();
+
+
+                var trHTML = '';
+                $.each(response, function (i, item) {
+                    trHTML += '<tr><td></td><td>' + item.regno + '</td><td>' + item.first_name + '</td><td>' + item.status + '</td></tr>';
+                });
+                $('#tbody').append(trHTML);
+
+
+
+            }
+        })
+    }
+</script>

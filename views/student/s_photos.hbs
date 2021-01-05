@@ -1,0 +1,20 @@
+
+{{!-- d-flex justify-content-center align-items-center flex-column py-5 --}}
+<div class="container mt-5">
+    <h1 style="text-align: center;">Gallery</h1>
+    <div class="row">
+         {{#each photos}}
+        <div class=" col-12 col-md-3 ">
+           
+            <div class="card mt-3" style="width: 15rem;">
+                <img src="/photos/{{this._id}}.png" style="width:238px ;height:250px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.photoname}}</h5>
+                   
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>

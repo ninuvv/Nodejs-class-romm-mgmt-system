@@ -1,0 +1,110 @@
+<section>
+    <div class="container">
+        <h1 class="text-center">Add Student</h2>
+
+            <div class="row col-12 mt-5">
+
+                <form action="/tutor/t_addstudent" method="POST" id="formType" class="addStud"
+                    enctype="multipart/form-data">
+
+
+                    <div class="form-group col-12  ">
+                        <img src=" " style="width:100px ; height:auto;" class="pt-3" alt="" id="imgView">
+                        <input type="file" class="form-control-file" required name="Image" id="Image" accept="image/*"
+                            onchange="viewImage(event)">
+
+                    </div>
+
+                    <div class=" col-12 col-md-12">
+
+                        <div class="form-row">
+
+                            <div class="form-group col-12 col-md-6">
+                                <label for="">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    placeholder="First Name" required>
+                            </div>
+
+                            <div class="form-group col-12 col-md-6">
+                                <label for="">last Name</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Address</label>
+                            <textarea class="form-control" name="address" id="" cols="2" rows="3"
+                                placeholder="Address"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                Gender :
+                                <input type="radio" name="gender" value="Female" checked>Female
+                                <input type="radio" name="gender" value="Male">Male
+                            </p>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">contact Number</label>
+                            <input type="tel" class="form-control" id="mob" name="mob" placeholder="Contact Number"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+
+                        <div class="col-sm-12" style="text-align:center">
+                            <button type="submit" id="loginbtn" onclick="return CheckFileName()"
+                                class="btn btn-primary">Submit</button>
+                        </div>
+
+
+                    </div>
+
+            </div>
+
+            </form>
+
+
+
+
+    </div>
+
+</section>
+
+<script>
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+
+    function CheckFileName() {
+        var fileName = document.getElementById("uploadFile").value
+        if (fileName == "") {
+            alert("Browse to upload a valid File with png extension");
+            return false;
+        }
+        else if (fileName.split(".")[1].toUpperCase() == "JPG")
+            return true;
+        else if (fileName.split(".")[1].toUpperCase() == "PNG")
+            return true;
+        else {
+            alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with JPG/PNG extensions");
+            return false;
+        }
+        return true;
+    }
+</script>

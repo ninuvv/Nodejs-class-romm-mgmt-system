@@ -1,0 +1,66 @@
+<div class="container mt-3 ">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-10 mt-3">
+            <h1 style="text-align: center;">Last week Attendence</h1>
+             <h4 class="float-right">Name :{{student.first_name}} </h4>
+            <table class="table mt-5" id="team-list">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl_no</th>
+                        <th scope="col">Date</th>
+                         <th scope="col">status</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    {{#each attendence}}
+                    <tr>
+                        <td></td>                       
+                        <td>{{this.date1}}</td>  
+                        <td>{{this.status}}</td>            
+                      
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-md-10 mt-3">
+            <h1 style="text-align: center;">Assignments Submitted</h1>
+          
+
+            <table class="table mt-5" id="team-list">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl_no</th>
+                         <th scope="col">Date</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">file name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each assignments}}
+                    <tr>
+                        <td></td>
+                        <td>{{formatTime this.submitDate "DD-MMM-YYYY" }}</td>
+                        {{#each assignName}}
+                        <td>{{this.topic}}</td>
+                        {{/each}}
+                        <td>
+                            <a href="/studentsAssignments/{{this.attendId}}.pdf">{{this.fileName}}</a>
+
+
+                        </td>
+
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

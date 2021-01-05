@@ -1,0 +1,50 @@
+<section>
+
+
+  <nav class="navbar" style="padding: 0px 0px;">
+
+    <div class="logo col-2">
+      <img src="/logo3.png" style=" height: 77px;" alt="" srcset="">
+    </div>
+    <div class="col-10 font-weight-bold">
+      <p class="text-center" style="font-size: 1.8rem">The Indian School -KSA</p>
+    </div>
+
+    <div class="navbar" style="width:100%;background-color:  #022465f2">
+
+      <p class="navp"> Hi {{tutorDetails.username}} ,</p>
+
+      <button class="float-right logoutbtn">
+        <a href="/tutor/tutorlogout">Log Out</a>
+
+      </button>
+    </div>
+
+  </nav>
+
+  <div class="sidebar">
+    <a class="active" href="/tutor/tutorHome">Home</a>
+    <a href="/tutor/tutorProfile">Profile</a>
+    <a href="/tutor/t_viewStudents">Students</a>
+    <a href="/tutor/t_attendence">Attendance</a>
+    <a href="/tutor/t_Assignments">Assignments</a>
+    <a href="/tutor/t_Note">Notes</a>
+    <a href="/tutor/t_Annoucements">Annoucements</a>
+    <a href="/tutor/t_Event">Events</a>
+    <a href="/tutor/t_registeredStudents">Registered Students</a>
+    <a href="/tutor/t_photos">Gallery</a>
+
+    <a href="/chatRoom/1">Chat Room</a>
+
+  </div>
+  {{!-- <div class="content"> 
+  <h2>Responsive Sidebar Example</h2>
+  <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or
+    less.</p>
+  <p>We have also added a media query for screens that are 400px or less, which will vertically stack and center the
+    navigation links.</p>
+  <h3>Resize the browser window to see the effect.</h3>
+</div> --}}
+</section>
+
+

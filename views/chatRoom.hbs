@@ -1,0 +1,185 @@
+<section>
+
+    <div class="container">
+        <h1 class="text-center"> Chat Room </h1>
+        <div class="row">
+            {{#if tutorDetails}}
+            <input type="text" id="username" class="form-control" value="{{tutorDetails.username}}" hidden>
+            {{else}}
+            <input type="text" id="username" class="form-control" value="{{studentDetails.first_name}}" hidden>
+            {{/if}}
+            <div class="containerBox   mt-5 ">
+                {{!-- <div class="message right">Ninu:hii..hw r u</div>
+                <div class="message left">sanju:am fine.hw abt u</div> --}}
+            </div>
+            <form action="" class="mt-3 d-flex flex-row flex-wrap  flex-grow-1 justify-content-center" id="form-container">
+                <input  type="text" name="msgInp" id="msgInp">
+                <button id="loginbtn" class="btn btn-primary" type="submit">Send</button>
+            </form>
+
+
+        </div>
+    </div>
+    <div>
+
+    </div>
+</section>
+
+
+{{!-- <div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-12">
+            <h1 class="text-center"> Chat Room
+                <button id="clear" class="btn btn-danger">Clear</button>
+            </h1>
+
+
+            {{!-- <div id="status"></div>
+            <div id="chat">
+                {{#if tutorDetails}}
+                <input type="text" id="username" class="form-control" value="{{tutorDetails.username}}" hidden>
+                {{else}}
+                <input type="text" id="username" class="form-control" value="{{studentDetails.first_name}}" hidden>
+                {{/if}}
+                <br>
+                <div class="card">
+                    <div id="messages" style="height:300px;" class="card-block">
+
+                    </div>
+                </div>
+                <br>
+                <textarea id="textarea" class="form-control" placeholder="Enter message..."></textarea>
+            </div> --}}
+            {{!--
+        </div>
+
+    </div>
+</div> --}}
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    var socket = io();
+    var form = document.getElementById("form-container");
+    var msgInp = document.getElementById("msgInp");
+    var msgContainer = document.querySelector(".containerBox");
+    var username = document.getElementById("username").value;
+    // var audio=new Audio('tick.mp3')
+    //audio.load()
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const msg = msgInp.value;
+        Append(`You: ${msg} `, "right");
+        socket.emit('send', msg);
+        msgInp.value = ''
+    })
+
+
+    const Append = (message, position) => {
+        const msgElement = document.createElement('div')
+        msgElement.innerHTML = message
+        msgElement.classList.add('message')
+        msgElement.classList.add(position)
+        msgContainer.append(msgElement)
+        //if(position=='left'){audio.play()  }
+
+    }
+
+
+    socket.emit("new-user-joined", username)
+
+    socket.on("user-joined", name => {
+        Append(`${name} joined the chat`, "right")
+    })
+
+    socket.on("receive", data => {
+        Append(`${data.name}: ${data.message}`, "left")
+    })
+
+    socket.on("leave", name => {
+        Append(`${name} left the chat`, "right")
+    })
+
+    /* (function () {
+                   var element = function (id) {
+                       return document.getElementById(id);
+                   }
+
+                   // Get Elements
+                   var status = element('status');
+                   var messages = element('messages');
+                   var textarea = element('textarea');
+                   var username = element('username');
+                   var clearBtn = element('clear');
+
+                   // Set default status
+                   var statusDefault = status.textContent;
+
+                   var setStatus = function (s) {
+                       // Set status
+                       status.textContent = s;
+
+                       if (s !== statusDefault) {
+                           var delay = setTimeout(function () {
+                               setStatus(statusDefault);
+                           }, 4000);
+                       }
+                   }
+
+
+                   // Check for connection
+                   if (socket !== undefined) {
+                       console.log('Connected to socket...');
+
+                       // Handle Output
+                       socket.on('output', function (data) {
+                           //console.log(data);
+                           if (data.length) {
+                               for (var x = 0; x < data.length; x++) {
+                                   // Build out message div
+                                   var message = document.createElement('div');
+                                   message.setAttribute('class', 'chat-message');
+                                   message.textContent = data[x].name + ": " + data[x].message;
+                                   messages.appendChild(message);
+                                   messages.insertBefore(message, messages.firstChild);
+                               }
+                           }
+                       });
+
+                       // Get Status From Server
+                       socket.on('status', function (data) {
+                           // get message status
+                           setStatus((typeof data === 'object') ? data.message : data);
+
+                           // If status is clear, clear text
+                           if (data.clear) {
+                               textarea.value = '';
+                           }
+                       });
+
+                       // Handle Input
+                       textarea.addEventListener('keydown', function (event) {
+                           if (event.which === 13 && event.shiftKey == false) {
+                               // Emit to server input
+                               socket.emit('input', {
+                                   name: username.value,
+                                   message: textarea.value
+                               });
+
+                               event.preventDefault();
+                           }
+                       })
+
+                       // Handle Chat Clear
+                       clearBtn.addEventListener('click', function () {
+                           socket.emit('clear');
+                       });
+
+                       // Clear Message
+                       socket.on('cleared', function () {
+                           messages.textContent = '';
+                       });
+                   }
+
+               })();*/
+</script>

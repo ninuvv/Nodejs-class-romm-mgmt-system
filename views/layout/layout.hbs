@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--Pulling Awesome Font -->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/tutor.css" />
+  <link rel="stylesheet" href="/stylesheets/croppie.css" />
+
+
+  <script src="/javascripts/croppie.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+
+  <title>Class Room Mgmt System</title>
+</head>
+
+<body>
+
+
+
+
+  {{#if tutor}}
+  {{>tutor_header}}
+  {{else if student}}
+  {{>student_header}}
+  {{else }}
+  <header>
+    <div class="container ">
+      <div class="row">
+        <div class="logo col-2">
+          <img src="/logo3.png" style=" height: 85px;" alt="" srcset="">
+        </div>
+        <div class="col-10 font-weight-bold">
+          <p class="text-center" style="font-size: 1.8rem">The Indian School -KSA</p>
+        </div>
+
+      </div>
+    </div>
+  </header>
+  {{/if}}
+
+
+  {{{body}}}
+
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+
+  {{!--
+  <script src="/javascripts/validate_checking.js"></script> --}}
+
+</body>
+
+</html>

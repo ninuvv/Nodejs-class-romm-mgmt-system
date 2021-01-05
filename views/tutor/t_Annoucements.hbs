@@ -1,0 +1,126 @@
+<div class="container mt-5">
+    <h1 class="text-center">Annoucements</h1>
+    <div class="row justify-content-center ">
+
+        <div class="col-12 col-md-12">
+            <form action="/tutor/t_Annoucements" id="formType" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Message</label>
+                    <input type="text" class="form-control" name="name" id="name">
+
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>PDF file</label>
+                    <input type="file" class="form-control-file" name="loadedPdfFile" id="loadedPdfFile"
+                        accept="application/pdf">
+                </div>
+                <div class="form-group">
+                    <label>Image file</label>
+                    <input type="file" class="form-control-file" name="loadedImageFile" id="loadedImageFile"
+                        accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>video file</label>
+                    <input type="file" class="form-control-file" name="loadedvideoFile" id="loadedvideoFile"
+                        accept="video/mp4">
+                </div>
+
+
+                <div class="col-sm-12 mt-3" style="text-align:center">
+                    <button type="submit" class="btn btn-primary" id="loginbtn"
+                        onclick="return CheckFileName()">Submit</button>
+                </div>
+
+
+
+
+
+            </form>
+        </div>
+
+        <table class="table mt-5" id="team-list">
+            <thead>
+                <tr>
+                    <th scope="col">Sl_no</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each annoucement}}
+                <tr>
+                    <td></td>
+                    <td>{{formatTime this.createdDate "DD-MMM-YYYY" }}</td>
+                    <td>{{this.name}}</td>
+
+                    <td>
+                        <a href="t_delAnnoucement/{{this._id}}" class="btn btn-danger"
+                            onclick=" return confirm('Are you want to delete {{this.name}}')">Delete</a>
+
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+
+    function CheckFileName() {
+        var filePdfName = document.getElementById("loadedPdfFile").value
+        var fileImageName = document.getElementById("loadedImageFile").value
+        var fileVideoName = document.getElementById("loadedvideoFile").value
+
+        if (filePdfName == '' && fileImageName == '' && fileVideoName == '') {
+            alert("Pls upload any file")
+            return false;
+        }
+        if (filePdfName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "PDF")
+                return true;
+
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with PDF extensions");
+                return false;
+            }
+            return true;
+        }
+
+        if (fileImageName) {
+            if (fileName.split(".")[1].toUpperCase() == "JPG")
+                return true;
+            else if (fileName.split(".")[1].toUpperCase() == "PNG")
+                return true;
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with JPG/PNG extensions");
+                return false;
+            }
+            return true;
+        }
+
+        if (fileVideoName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "MP4")
+                return true;
+
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with MP4 extensions");
+                return false;
+            }
+            return true;
+        }
+
+    }
+
+
+</script>

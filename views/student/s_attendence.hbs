@@ -1,0 +1,123 @@
+<div class="container">
+
+    <h1 style="text-align: center;">Attendence</h1>
+    <div class="row justify-content-center mt-2">
+
+
+        <div class="form-group">
+
+            <select onchange="monthyearChange('{{studentDetails._id}}')" class="form-control" id="month" name="month">
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December </option>
+            </select>
+        </div>
+        <div class="form-group">
+
+            <select onchange="monthyearChange('{{studentDetails._id}}')" class="form-control" id="year" name="year">
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+
+            </select>
+
+
+        </div>
+    </div>
+  
+    <h3>No:of days Persent: <span name="persent" id="persent"></span> </h3>
+  <h3>Percentage: <span name="percentage" id="percentage"></span> %</h3>
+
+
+    <table class="table mt-1" id="team-list">
+        <thead>
+            <tr>
+                <th scope="col">Sl_no</th>
+                <th scope="col">Date</th>
+                <th scope="col">status </th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+</div>
+<script>
+    function monthyearChange(studId) {
+
+        var month = document.getElementById("month").value
+        var year = document.getElementById("year").value
+
+        $.ajax({
+            url: '/student/getAttendence',
+            method: 'post',
+            data: {
+                studId: studId,
+                month: month,
+                year: year,
+
+            },
+            success: (response) => {
+
+                $('tbody').empty();
+
+
+                var trHTML = '';
+                $.each(response[0], function (i, item) {
+                    trHTML += '<tr><td></td><td>' + formatDate(item.date1) + '</td><td>' + item.status + '</td></tr>';
+                });
+                $('#tbody').append(trHTML);
+
+
+                /* if (Object.keys(response).length === 0) {
+                     count = 0
+                 } else {
+                     count = response[0].count
+ 
+                 }
+ 
+                 console.log("response" + count)
+                 document.getElementById("present").innerHTML = count*/
+                document.getElementById('percentage').innerHTML = response[1]
+                document.getElementById('persent').innerHTML = response[2]
+
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2)
+                        month = '0' + month;
+                    if (day.length < 2)
+                        day = '0' + day;
+
+                    return [day, month, year].join('-');
+                }
+
+            }
+        })
+    }
+</script>
