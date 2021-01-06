@@ -16,6 +16,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let loginStatus = false
             let response = {}
+
             let tutor = await db.get().collection(collection.TUTOR_COLLECTIONS).
                 findOne({ $and: [{ username: tutordata.username }, { password: tutordata.password }] })
             if (tutor) {
@@ -28,6 +29,8 @@ module.exports = {
                 console.log("login failed")
                 resolve({ status: false })
             }
+
+
         })
     },
 
@@ -72,9 +75,9 @@ module.exports = {
             details.pdffilename = pdffilename
             details.imagefilename = imagefilename
             details.videofilename = videofilename
-            details.amount=parseInt(details.amount)
+            details.amount = parseInt(details.amount)
             db.get().collection(collection.EVENT_COLLECTION).insertOne(details).then((data) => {
-                console.log(data.ops[0]._id)
+                // console.log(data.ops[0]._id)
                 resolve(data.ops[0]._id)
             })
         })
@@ -129,7 +132,7 @@ module.exports = {
     getallStudents: () => {
         return new Promise(async (resolve, reject) => {
             let students = await db.get().collection(collection.STUDENT_COLLECTION).find({ 'del_status': false }).toArray();
-            console.log("details" + students)
+            // console.log("details" + students)
             resolve(students)
         })
     },
@@ -206,7 +209,7 @@ module.exports = {
     },
 
     annoucementDetails: (annoucementId) => {
-        console.log("annouid" + annoucementId)
+        // console.log("annouid" + annoucementId)
         return new Promise(async (resolve, reject) => {
             let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find({ _id: ObjId(annoucementId) }).toArray();
             resolve(annoucements)
@@ -278,37 +281,39 @@ module.exports = {
     //     })
     // },
     getstudentAttendence: (studId) => {
-        
+
         let month = new Date().getMonth()
-        let year =new Date().getFullYear()
+        let year = new Date().getFullYear()
         // let day = parseInt(new Date().getUTCDate())
-        let day =new Date().getDate ()
+        let day = new Date().getDate()
 
         return new Promise(async (resolve, reject) => {
-        
+
             let array = []
-           
-            for (let ii = 0; ii <=6; ii++) {
-                 let stdetails = {}
-                var date = new Date(Date.UTC(year, month, day-ii))
-               // let date = new Date(year, month, ii)
+
+            for (let ii = 0; ii <= 6; ii++) {
+                let stdetails = {}
+                var date = new Date(Date.UTC(year, month, day - ii))
+                // let date = new Date(year, month, ii)
                 //let checkingdate = moment(date).format("MM/DD/YYYY");
-                 checkingdate=date.toLocaleDateString()
+                checkingdate = date.toLocaleDateString()
                 //console.log( checkingdate)
-                 stdetails.date1 =checkingdate
-              
-                let attExist = await db.get().collection(collection.STUDENT_COLLECTION).findOne({ $and: [{ _id: ObjId(studId) },
-                                                 { "attendence.attenddate": { $eq: checkingdate } }] })
+                stdetails.date1 = checkingdate
+
+                let attExist = await db.get().collection(collection.STUDENT_COLLECTION).findOne({
+                    $and: [{ _id: ObjId(studId) },
+                    { "attendence.attenddate": { $eq: checkingdate } }]
+                })
                 // console.log(attExist)
                 if (attExist) {
                     stdetails.status = "P"
                 } else {
                     stdetails.status = "A"
                 }
-                 array.push(stdetails)
-               
+                array.push(stdetails)
+
             }
-           
+
             resolve(array)
         })
     },
@@ -340,7 +345,7 @@ module.exports = {
                 // }
 
             ]).toArray()
-            console.log("ass1" + assCollection)
+            // console.log("ass1" + assCollection)
             // console.log(studentAssginmentcollection[0].assignment)
             resolve(assCollection)
         })
@@ -426,7 +431,7 @@ module.exports = {
     addPhoto: (details) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PHOTO_COLLECTION).insertOne(details).then((data) => {
-                console.log(data.ops[0]._id)
+                // console.log(data.ops[0]._id)
                 resolve(data.ops[0]._id)
             })
         })
@@ -453,7 +458,7 @@ module.exports = {
     generateRazorpayOrder: (orderId, amount) => {
         return new Promise(async (resolve, reject) => {
             var options = {
-                amount: amount*100,  // amount in the smallest currency unit
+                amount: amount * 100,  // amount in the smallest currency unit
                 currency: "INR",
                 receipt: "" + orderId
             };
@@ -469,54 +474,54 @@ module.exports = {
             const crypto = require('crypto');
             let hmac = crypto.createHmac('sha256', 'AYEUuSiiG5nOLEykeeAJemfT');
             hmac.update(details['payment[razorpay_order_id]'] + "|" + details['payment[razorpay_payment_id]']);
-           hmac=hmac.digest('hex');
-           if (hmac== details['payment[razorpay_signature]']){
-               resolve()
-           }else{
-               reject()
-           }
+            hmac = hmac.digest('hex');
+            if (hmac == details['payment[razorpay_signature]']) {
+                resolve()
+            } else {
+                reject()
+            }
         })
 
     },
 
-    updateSponserStatus:(orderId)=>{
+    updateSponserStatus: (orderId) => {
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.SPONSERSHIP_COLLECTION).updateOne({_id:ObjId(orderId)},
-                                                                {$set:{"status":"success"}}).then((data) => {
-                resolve()
-            })
-        })  
+            db.get().collection(collection.SPONSERSHIP_COLLECTION).updateOne({ _id: ObjId(orderId) },
+                { $set: { "status": "success" } }).then((data) => {
+                    resolve()
+                })
+        })
     },
 
     eventLoad: () => {
-         return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             let event = await db.get().collection(collection.EVENT_COLLECTION).find({ amount: { $gt: 0 } }).toArray();
             resolve(event)
         })
     },
-    
+
     eventLoadStudents: (eventId) => {
         return new Promise(async (resolve, reject) => {
-           let event = await db.get().collection(collection.PAID_COLLECTION).aggregate([
-           // {$match:{"eventId" :ObjId(eventId)}},
-           {$match:{$and:[ {"status" : "success"}, {"eventId" :ObjId(eventId)}]} },
-            {
-               $lookup:
-                 {
-                   from:"students",
-                   localField: "studId",
-                   foreignField:"_id",
-                   as: "student"
-                 }
-            }
-            ,{$unwind:"$student"}
-            ,{$project:{method:1,amount:1,date:1,"student.first_name":1}}
+            let event = await db.get().collection(collection.PAID_COLLECTION).aggregate([
+                // {$match:{"eventId" :ObjId(eventId)}},
+                { $match: { $and: [{ "status": "success" }, { "eventId": ObjId(eventId) }] } },
+                {
+                    $lookup:
+                    {
+                        from: "students",
+                        localField: "studId",
+                        foreignField: "_id",
+                        as: "student"
+                    }
+                }
+                , { $unwind: "$student" }
+                , { $project: { method: 1, amount: 1, date: 1, "student.first_name": 1 } }
             ]).toArray();
 
-         //   console.log(event)
-           resolve(event)
-       })
-   },
+            //   console.log(event)
+            resolve(event)
+        })
+    },
 
 
 }

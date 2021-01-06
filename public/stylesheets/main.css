@@ -21,7 +21,7 @@
     margin: 0;
     /* width: 100vw; */
     min-height: 100vh;
-     /* background: url("../images/bg2.jpg") no-repeat center center/cover; */
+     background: url("../images/bg2.jpg") no-repeat center center/cover;
  }
  /* section{
   background: url("../images/bg2.jpg") no-repeat center center/cover;
@@ -109,7 +109,8 @@ clear: both;
   .container {
     /* background-color: rgb(7, 85, 13); */
     max-width: 1006px;
-    margin: 0px 200px;
+    margin: 0px 220px;
+   
   
   }
   
@@ -119,7 +120,7 @@ clear: both;
   .container {
     /* background-color: rgb(35, 24, 61); */
     max-width: 772px;
-    margin: 0px 200px;
+    margin: 0px 220px;
   
   }
   
@@ -131,7 +132,7 @@ clear: both;
 .container  {
   /* background-color: rgb(128, 136, 10); */
     max-width: 479px;
-    margin: 0 200px;
+    margin: 0 220px;
 }
 }
 

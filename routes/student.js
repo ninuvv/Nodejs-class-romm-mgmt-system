@@ -136,7 +136,7 @@ router.post("/s_Assignments", verifyLogin, (req, res) => {
 
 router.get("/s_delAssignment/:attendId", verifyLogin, function (req, res) {
   let assgnId = req.params.attendId
-  console.log(assgnId)
+  // console.log(assgnId)
   studentHelper.delStudentAssignment(assgnId, req.session.student._id).then((data) => {
     res.redirect("/student/s_Assignments")
   })
@@ -162,7 +162,7 @@ router.get('/s_archeivenotes', verifyLogin, async (req, res) => {
 
 router.post('/markAttendence', (req, res) => {
   studentHelper.markAttendence(req.body).then((response) => {
-    console.log(response)
+    // console.log(response)
     res.json(response)
   })
 
@@ -184,10 +184,10 @@ router.get("/s_loadEvent/:eventId", verifyLogin, async (req, res) => {
   let eventId = req.params.eventId
   let eventDetails = await studentHelper.eventDetails(eventId)
   let Done = "A"
-  console.log(req.session.student._id + '  ' + eventId)
+  // console.log(req.session.student._id + '  ' + eventId)
   let present = await studentHelper.payementDoneOrNot(req.session.student._id, eventId)
-  console.log(Done)
-  console.log(present)
+  // console.log(Done)
+  // console.log(present)
   if (present.length > 0) {
     Done = "P"
   }
@@ -199,9 +199,9 @@ router.get("/s_loadEvent/:eventId", verifyLogin, async (req, res) => {
 
 router.get("/s_annoucementDetails/:annoucementId", verifyLogin, async (req, res) => {
   let AnnId = req.params.annoucementId
-  console.log(AnnId)
+  // console.log(AnnId)
   let annoucementDetails = await studentHelper.annoucementDetails(AnnId)
-  console.log(annoucementDetails)
+  // console.log(annoucementDetails)
   res.render('student/s_annoucementDetails', { student: true, studentDetails: req.session.student, annoucementDetails })
 })
 
@@ -245,7 +245,7 @@ router.get('/s_photos', verifyLogin, async (req, res) => {
 //#####################################################################
 
 router.post("/verifyPayment", async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   studentHelper.verifyPayment(req.body).then((response) => {
     studentHelper.updatePaidStatus(req.body['order[receipt]']).then(() => {
       res.json({ status: true })
@@ -274,8 +274,8 @@ router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
     res.json("Already Paid for this Event")
   } else {
     studentHelper.addPaidStudentEvent(req.body).then((orderId) => {
-      console.log("req.body.method" + req.body.method)
-      console.log("req.body.amount" + req.body.amount)
+      // console.log("req.body.method" + req.body.method)
+      // console.log("req.body.amount" + req.body.amount)
       if (req.body.method === 'razorpay') {
         studentHelper.generateRazorpayOrder(orderId, req.body.amount).then((response) => {
           res.json(response)
@@ -294,8 +294,8 @@ router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
 
 router.post('/s_payPal', verifyLogin, async (req, res) => {
 
-  console.log("req.body.method" + req.body.method)
-  console.log("req.body.amount" + req.body.amount)
+  // console.log("req.body.method" + req.body.method)
+  // console.log("req.body.amount" + req.body.amount)
   EventAmount = req.body.amount
 
   studentHelper.addPaidStudentEvent(req.body).then((orderId) => {

@@ -84,7 +84,7 @@ module.exports = {
                 // }
 
             ]).toArray()
-            console.log("ass1" + assCollection)
+            // console.log("ass1" + assCollection)
             // console.log(studentAssginmentcollection[0].assignment)
             resolve(assCollection)
         })
@@ -446,7 +446,7 @@ module.exports = {
         })
     },
     eventDetails: (eventtId) => {
-        console.log("eventtId" + eventtId)
+        // console.log("eventtId" + eventtId)
         return new Promise(async (resolve, reject) => {
             let events = await db.get().collection(collection.EVENT_COLLECTION).find({ _id: ObjId(eventtId) }).toArray();
             resolve(events)
@@ -461,7 +461,7 @@ module.exports = {
     },
 
     annoucementDetails: (annoucementId) => {
-        console.log("annouid" + annoucementId)
+        // console.log("annouid" + annoucementId)
         return new Promise(async (resolve, reject) => {
             let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find({ _id: ObjId(annoucementId) }).toArray();
             resolve(annoucements)

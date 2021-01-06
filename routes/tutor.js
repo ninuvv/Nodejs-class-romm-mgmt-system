@@ -7,7 +7,7 @@ const path = require('path')
 const fs = require('fs');
 
 const verifyLogin = (req, res, next) => {
-  console.log("verify" + req.session.tutor)
+  // console.log("verify" + req.session.tutor)
   if (req.session.tutor) { next() }
   else { res.redirect("/tutor") }
 }
@@ -54,9 +54,9 @@ router.get("/tutorHome", verifyLogin, async (req, res) => {
 
 router.get("/t_viewAnnoucementDetails/:annoucementId", verifyLogin, async (req, res) => {
   let AnnId = req.params.annoucementId
-  console.log(AnnId)
+  // console.log(AnnId)
   let annoucementDetails = await tutorHelper.annoucementDetails(AnnId)
-  console.log(annoucementDetails)
+  // console.log(annoucementDetails)
   res.render('tutor/t_viewAnnoucementDetails', { tutor: true, tutorDetails: req.session.tutor, annoucementDetails })
 })
 
@@ -131,7 +131,7 @@ router.post("/t_Annoucements", verifyLogin, (req, res) => {
 })
 router.get("/t_delAnnoucement/:annoId", verifyLogin, function (req, res) {
   let annoId = req.params.annoId
-  console.log(annoId)
+  // console.log(annoId)
   tutorHelper.deleteAnnoucement(annoId).then((data) => {
     res.redirect("/tutor/t_Annoucements")
   })
@@ -144,7 +144,7 @@ router.get("/t_delAnnoucement/:annoId", verifyLogin, function (req, res) {
 router.get("/tutorProfile", verifyLogin, function (req, res) {
   if (req.session.tutor) {
     tutorHelper.tutorDetails(req.session.tutor._id).then((tutorDetails) => {
-      console.log(tutorDetails)
+      // console.log(tutorDetails)
       res.render('tutor/tutorProfile', { tutor: true, tutorDetails })
     })
   }
@@ -224,9 +224,9 @@ router.post("/t_editStudent/:studId", (req, res) => {
 
 router.get("/t_deletestudent/:studId", verifyLogin, function (req, res) {
   let studId = req.params.studId
-  console.log(studId)
+  // console.log(studId)
   tutorHelper.deleteStudent(studId).then((data) => {
-    console.log(data)
+    // console.log(data)
     res.redirect("/tutor/t_viewStudents")
   })
 })
@@ -249,7 +249,7 @@ router.post("/t_Assignments", (req, res) => {
 
 router.get("/t_delAssignment/:assgnId", verifyLogin, function (req, res) {
   let assgnId = req.params.assgnId
-  console.log(assgnId)
+  // console.log(assgnId)
   tutorHelper.deleteAssignment(assgnId).then((data) => {
     res.redirect("/tutor/t_Assignments")
   })
@@ -298,9 +298,9 @@ router.get("/t_delNotes/:noteId", verifyLogin, function (req, res) {
 })
 router.get("/t_studentAssignments/:studId", verifyLogin, async (req, res) => {
   let studId = req.params.studId
-  console.log("studeId" + studId)
+  // console.log("studeId" + studId)
   let student = await tutorHelper.getstudent(studId)
-  console.log("student" + student)
+  // console.log("student" + student)
   let assignments = await tutorHelper.getStudentAssignments(studId)
   let attendence = await tutorHelper.getstudentAttendence(studId)
   res.render("tutor/t_studentAssignments", { tutor: true, tutorDetails: req.session.tutor, assignments, student, attendence })
@@ -326,7 +326,7 @@ router.get("/t_attendence", verifyLogin, async (req, res) => {
 router.post('/loadStudentAttendence', (req, res) => {
   // console.log(new Date(req.body.changedate))
   tutorHelper.studentsAttendece(new Date(req.body.changedate)).then((response) => {
-    console.log("details" + response)
+    // console.log("details" + response)
     // res.render('tutor/t_attendence', { tutor: true, tutorDetails: req.session.tutor, response })
     res.json(response)
   })
@@ -420,9 +420,9 @@ router.post("/t_Event", verifyLogin, function (req, res) {
 
 router.get("/t_loadEvent/:eventId", verifyLogin, async (req, res) => {
   let eventId = req.params.eventId
-  console.log(eventId)
+  // console.log(eventId)
   let eventDetails = await tutorHelper.eventDetails(eventId)
-  console.log(eventDetails)
+  // console.log(eventDetails)
   res.render('tutor/t_loadEvent', { tutor: true, tutorDetails: req.session.tutor, eventDetails })
 })
 
@@ -431,7 +431,7 @@ router.get("/t_loadEvent/:eventId", verifyLogin, async (req, res) => {
 
 
 router.post("/verifyPayment", async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   tutorHelper.verifyPayment(req.body).then((response) => {
     tutorHelper.updateSponserStatus(req.body['order[receipt]']).then(() => {
       res.json({ status: true })
@@ -463,8 +463,8 @@ router.get("/t_orderSuccess", verifyLogin, async (req, res) => {
 
 router.post('/t_sponsership', verifyLogin, async (req, res) => {
   tutorHelper.addSponsership(req.body).then((orderId) => {
-    console.log("req.body.method" + req.body.method)
-    console.log("req.body.amount" + req.body.amount)
+    // console.log("req.body.method" + req.body.method)
+    // console.log("req.body.amount" + req.body.amount)
     if (req.body.method === 'razorpay') {
       tutorHelper.generateRazorpayOrder(orderId, req.body.amount).then((response) => {
         res.json(response)
@@ -485,7 +485,7 @@ router.get('/t_registeredStudents', async (req, res, next) => {
 });
 
 router.post('/t_loadregisteredStudents', async (req, res, next) => {
-  console.log("eventId"+req.body.eventId)
+  // console.log("eventId"+req.body.eventId)
  tutorHelper.eventLoadStudents(req.body.eventId).then((response)=>{
   //console.log(response)
   res.json(response)
