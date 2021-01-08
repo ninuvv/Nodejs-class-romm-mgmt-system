@@ -3,18 +3,29 @@
         <h2 style="text-align: center;">Edit Student Details</h2>
 
         {{!-- <div class="float-right">
-                    <img src="/student.jpg" style="width:100px ; height:auto;" class="pt-3" alt="" id="imgView">
-                    <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg" onchange="viewImage(event)">
-                
-                
-                
-                </div> --}}
+            <img src="/student.jpg" style="width:100px ; height:auto;" class="pt-3" alt="" id="imgView">
+            <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg"
+                onchange="viewImage(event)">
+
+
+
+        </div> --}}
         <form action="/tutor/t_editStudent/{{student._id}}" method="POST" id="formType" enctype="multipart/form-data">
+            <div class="float-right ml-4 clearfix">
 
-            <div class="row mt-5" style="width: 134%;">
+                <img src="/profile_photo/{{student._id}}.jpg" style="width:100px ; height:auto;" class="pt-3" alt=""
+                    id="imgView">
+                <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg"
+                    onchange="viewImage(event)">
 
-                <div class="col-sm-6 col-md-6">
+            </div>
+            {{!-- <div class="row mt-5"> --}}
+
+
+                <div class="col-12">
                     <h4>Registration Number :{{student.regno}} </h4>
+
+
                     <div class="form-row">
 
                         <div class="form-group col-md-6">
@@ -42,8 +53,10 @@
                             Geneder :
                             {{!-- <input type="radio" id="Female" name="gender" value="female">female
                             <input type="radio" id="Male" name="gender" value="Male" checked>Male --}}
-                            <input type="radio" id="Female" name="gender" value="Female"  {{setChecked 'Female' student.gender }}  >female
-                            <input type="radio" id="Male" name="gender" value="Male" {{setChecked 'Male' student.gender }}>Male
+                            <input type="radio" id="Female" name="gender" value="Female" {{setChecked 'Female'
+                                student.gender }}>female
+                            <input type="radio" id="Male" name="gender" value="Male" {{setChecked 'Male' student.gender
+                                }}>Male
                         </p>
                     </div>
 
@@ -72,18 +85,9 @@
 
 
                 </div>
-                <div class="col-sm-6 col-md-6">
-                    <div class="form-group col-md-6">
-                        <img src="/profile_photo/{{student._id}}.jpg" style="width:100px ; height:auto;" class="pt-3"
-                            alt="" id="imgView">
-                        <input type="file" class="form-control-file" name="Image" id="Image" accept="image/jpg"
-                            onchange="viewImage(event)">
 
-                    </div>
 
-                </div>
-
-            </div>
+            {{!-- </div> --}}
         </form>
 
 
@@ -94,12 +98,12 @@
 </section>
 
 <script>
-      function viewImage(event) {
+    function viewImage(event) {
         document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
     }
 
 
-  
+
 
     function CheckFileName() {
         var fileName = document.getElementById("uploadFile").value
