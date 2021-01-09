@@ -98,19 +98,30 @@
         else {
 
         }
-        console.log(fileName.split(".")[1].toUpperCase())
 
-        if (fileName.split(".")[1].toUpperCase() == "PDF")
-            return true;
-        else {
-            alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with pdf extensions");
-            return false;
+        if (fileName) {
+
+            if (fileName.split(".")[1].toUpperCase() == "PDF") {
+                alert("1")
+                return true;
+            }
+
+            else {
+                alert("File with " + fileName.split(".")[1] + " is invalid. Upload a validfile with pdf extensions");
+                return false;
+            }
         }
-        if (videofile.split(".")[1].toUpperCase() == "MP4")
-            return true;
-        else {
-            alert("File with " + videofile.split(".")[1] + " is invalid. Upload a validfile with mp4 extensions");
-            return false;
+
+        if (videofile) {
+
+            if (videofile.split(".")[1].toUpperCase() === "MP4") {
+
+                return true;
+            }
+            else {
+                alert("File with " + videofile.split(".")[1] + " is invalid. Upload a validfile with mp4 extensions");
+                return false;
+            }
         }
 
         return true;
