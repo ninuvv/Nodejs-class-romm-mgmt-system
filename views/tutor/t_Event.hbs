@@ -132,7 +132,7 @@
           var xhr = new window.XMLHttpRequest();
           xhr.upload.addEventListener("progress", function (evt) {
             if (evt.lengthComputable) {
-              var percentComplete = (Math.round(evt.loaded / evt.total)) * 100);
+              var percentComplete = ((evt.loaded / evt.total) * 100);
               if (video) {
                 $(".progress").css("display", "block");
                 $(".progress-bar").width(percentComplete + '%')
