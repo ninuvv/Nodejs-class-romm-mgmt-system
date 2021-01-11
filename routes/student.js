@@ -410,10 +410,14 @@ router.post('/s_paytm', [parseUrl, parseJson], (req, res) => {
       params['CUST_ID'] = 'customer_001';
       params['TXN_AMOUNT'] = req.body.amount.toString();
 <<<<<<< HEAD
+<<<<<<< HEAD
       params['CALLBACK_URL'] ='http://157.245.101.127/student/callback';
 =======
       params['CALLBACK_URL'] = 'https://indianschoolweb.com//student/callback';
 >>>>>>> e2bfadf1dd0401969dd1edb4c2fa97e59b7f535a
+=======
+      params['CALLBACK_URL'] = 'https://indianschoolweb.com/student/callback';
+>>>>>>> 23d3b73f72ff2b23d1d15b7dec714fab3ce09dcb
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone.toString();
 

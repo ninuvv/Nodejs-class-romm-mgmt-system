@@ -32,7 +32,7 @@
     "razorpay": "^2.0.6",
     "request": "^2.88.2",
     "socket.io": "^3.0.4",
-    "twilio": "^3.53.0",
+    "twilio": "^3.54.2",
     "unirest": "^0.6.0",
     "youtube-video-js": "^3.3.0"
   }
