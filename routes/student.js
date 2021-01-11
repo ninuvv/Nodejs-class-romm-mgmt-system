@@ -306,8 +306,8 @@ router.post('/s_payPal', verifyLogin, async (req, res) => {
         "payment_method": "paypal"
       },
       "redirect_urls": {
-        "return_url": "http://localhost:3000/student/paypalsuccess",
-        "cancel_url": "http://localhost:3000/student/s_paypalcancel"
+        "return_url": "https://indianschoolweb.com/paypalsuccess",
+        "cancel_url": "https://indianschoolweb.com/s_paypalcancel"
 
       },
       "transactions": [{
