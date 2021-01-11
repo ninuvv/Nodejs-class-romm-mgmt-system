@@ -306,8 +306,8 @@ router.post('/s_payPal', verifyLogin, async (req, res) => {
         "payment_method": "paypal"
       },
       "redirect_urls": {
-        "return_url": "http://localhost:3000/student/paypalsuccess",
-        "cancel_url": "http://localhost:3000/student/s_paypalcancel"
+        "return_url": "http://157.245.101.127/student/paypalsuccess",
+        "cancel_url": "http://157.245.101.127/student/s_paypalcancel"
 
       },
       "transactions": [{
@@ -409,7 +409,7 @@ router.post('/s_paytm', [parseUrl, parseJson], (req, res) => {
       params['ORDER_ID'] = 'TEST_' + new Date().getTime();
       params['CUST_ID'] = 'customer_001';
       params['TXN_AMOUNT'] = req.body.amount.toString();
-      params['CALLBACK_URL'] = 'http://localhost:3000/student/callback';
+      params['CALLBACK_URL'] = 'http://157.245.101.127/student/callback';
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone.toString();
 
