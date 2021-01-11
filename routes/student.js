@@ -269,8 +269,9 @@ router.get("/s_orderSuccess", verifyLogin, async (req, res) => {
 
 
 router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
-  let present = studentHelper.payementDoneOrNot(req.body.studId, req.body.eventId)
-  if (present) {
+  let present = await studentHelper.payementDoneOrNot(req.body.studId, req.body.eventId)
+  // console.log(present)
+  if (present.length>0) {
     res.json("Already Paid for this Event")
   } else {
     studentHelper.addPaidStudentEvent(req.body).then((orderId) => {
@@ -307,7 +308,9 @@ router.post('/s_payPal', verifyLogin, async (req, res) => {
       },
       "redirect_urls": {
         "return_url": "https://indianschoolweb.com/paypalsuccess",
-        "cancel_url": "https://indianschoolweb.com/s_paypalcancel"
+        "cancel_url": "https://indianschoolweb.com/s_paypalcancel" 
+        //  "return_url": "http://localhost:3000/student/paypalsuccess",
+        // "cancel_url": "http://localhost:3000/student/s_paypalcancel"
 
       },
       "transactions": [{
