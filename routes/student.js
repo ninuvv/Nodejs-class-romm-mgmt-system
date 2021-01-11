@@ -272,7 +272,7 @@ router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
   let present = await studentHelper.payementDoneOrNot(req.body.studId, req.body.eventId)
   // console.log(present)
   if (present.length>0) {
-    res.json("Alreadyy Paid for this Event")
+    res.json("Alreadyyy Paid for this Event")
   } else {
     studentHelper.addPaidStudentEvent(req.body).then((orderId) => {
       // console.log("req.body.method" + req.body.method)
