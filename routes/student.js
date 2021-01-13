@@ -268,27 +268,27 @@ router.get("/s_orderSuccess", verifyLogin, async (req, res) => {
 })
 
 
-// router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
-//   let present = await studentHelper.payementDoneOrNot(req.body.studId, req.body.eventId)
-//   // console.log(present)
-//   if (present.length>0) {
-//     res.json("Alreadyyy Paid for this Event")
-//   } else {
-//     studentHelper.addPaidStudentEvent(req.body).then((orderId) => {
-//       // console.log("req.body.method" + req.body.method)
-//       // console.log("req.body.amount" + req.body.amount)
-//       if (req.body.method === 'razorpay') {
-//         studentHelper.generateRazorpayOrder(orderId, req.body.amount).then((response) => {
-//           res.json(response)
-//         })
-//       }
-//       else {
+router.post('/s_paidStudentEvent', verifyLogin, async (req, res) => {
+  let present = await studentHelper.payementDoneOrNot(req.body.studId, req.body.eventId)
+  // console.log(present)
+  if (present.length>0) {
+    res.json("Alreadyyy Paid for this Event")
+  } else {
+    studentHelper.addPaidStudentEvent(req.body).then((orderId) => {
+      // console.log("req.body.method" + req.body.method)
+      // console.log("req.body.amount" + req.body.amount)
+      if (req.body.method === 'razorpay') {
+        studentHelper.generateRazorpayOrder(orderId, req.body.amount).then((response) => {
+          res.json(response)
+        })
+      }
+      else {
 
-//       }
-//     })
-//   }
+      }
+    })
+  }
 
-// })
+})
 
 
 

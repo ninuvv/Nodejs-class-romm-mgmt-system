@@ -36,7 +36,7 @@ router.post('/tutorLogin', (req, res) => {
       let annoucements = await tutorHelper.loadAnnoucements()
       let events = await tutorHelper.loadEvents()
 
-      res.render('tutor/tutorHome', { tutor: true, tutorDetails: "aaaaa", annoucements, events })
+      res.render('tutor/tutorHome', { tutor: true, tutorDetails: req.session.tutor, annoucements, events })
     } else {
       req.session.userLoginErr = "Invalid user name and password";
       res.redirect('/tutor')
