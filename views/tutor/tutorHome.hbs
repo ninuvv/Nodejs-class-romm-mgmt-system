@@ -1,50 +1,39 @@
 <div class="container">
     <div class="row mx-auto ">
-        <div class="col-md-12  border-secondary rounded mt-5 " style="background: #ffffffad;">
+        <div class="col-md-12   mt-5 " style="background: #ffffffad;">
             <h2 style="text-align: center;">Our Mission</h2>
-            <p style="text-align: center;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, ex illo!
-                Nesciunt dolores laborum libero
-                unde? Quasi reprehenderit aliquam officiis ex, molestiae laboriosam fugiat! Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. </p>
+            <p style="text-align: center;">The Indian School, KSA is committed to providing quality
+                education with a positive emphasis on character formation, co-operation and quest for excellence. It
+                prepares intellectually and emotionally to excel and teaches them to face challenges and
+                responsibilities of life. </p>
         </div>
-        <div class="col-md-6" style="background: #ffffffad;">
-            {{!-- <div class="row"> --}}
-                <div style="height: 50vh" class="col-md-12  border border-secondary rounded mt-2 ">
-                    <h3 style="text-align: center;">Annoucemnets</h3>
+        <div class="col-md-6 border" style="background: #ffffffad;">
+            <h3 style="text-align: center;">Annoucemnets</h3>
+            {{#each annoucements}}            <ul>
+                <li style="margin-left: 49px;"><a style="color: black;"
+                        href="t_viewAnnoucementDetails/{{this._id}}">{{this.name}}</a>
+                </li>
+            </ul>
+            {{/each}}
 
-                    {{#each annoucements}}
-                    <ul>
-                        <li style="margin-left: 49px;"><a style="color: black;" href="t_viewAnnoucementDetails/{{this._id}}">{{this.name}}</a>
-                        </li>
-                    </ul>
-
-
-                    {{/each}}
-
-                </div>
-
-
-                {{!--
-            </div> --}}
 
         </div>
-        <div class="col-md-6" style="background: #ffffffad;">
-            <div style="height: 50vh" class=" col-md-12  border border-secondary rounded mt-2 ">
-              
-                    <h3 style="text-align: center;">Events</h3>
-                    {{#each events}}
-                    <ul>
-                        <li style="margin-left: 49px;">
-                            <a style="color: black;" href="t_loadEvent/{{this._id}}"> {{this.event}}</a>
-                        </li>
-                    </ul>
+
+        <div class="col-md-6 border " style="background: #ffffffad;">
+            <h3 style="text-align: center;">Events</h3>
+            {{#each events}}
+            <ul>
+                <li style="margin-left: 49px;">
+                    <a style="color: black;" href="t_loadEvent/{{this._id}}"> {{this.event}}</a>
+                </li>
+            </ul>
 
 
-                    {{/each}}
-               
+            {{/each}}
 
 
-            </div>
+
+
         </div>
     </div>
 

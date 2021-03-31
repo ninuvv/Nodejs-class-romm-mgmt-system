@@ -83,6 +83,16 @@ module.exports = {
         })
 
     },
+
+    deleteEvent: (eventId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.EVENT_COLLECTION).removeOne({ _id: ObjId(eventId) }).then((data) => {
+                resolve(data)
+            })
+
+        })
+    },
+
     tutorDetails: (tutorId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.TUTOR_COLLECTIONS).findOne({ _id: ObjId(tutorId) }).then((tutor) => {
@@ -131,7 +141,7 @@ module.exports = {
 
     getallStudents: () => {
         return new Promise(async (resolve, reject) => {
-            let students = await db.get().collection(collection.STUDENT_COLLECTION).find({ 'del_status': false }).toArray();
+            let students = await db.get().collection(collection.STUDENT_COLLECTION).find().sort({_id:-1}).toArray();
             // console.log("details" + students)
             resolve(students)
         })
@@ -190,20 +200,20 @@ module.exports = {
     },
     loadAssignment: () => {
         return new Promise(async (resolve, reject) => {
-            let assignments = await db.get().collection(collection.ASSIGNMENT_COLLECTION).find().toArray();
+            let assignments = await db.get().collection(collection.ASSIGNMENT_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(assignments)
         })
     },
 
     loadAnnoucements: () => {
         return new Promise(async (resolve, reject) => {
-            let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find().toArray();
+            let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(annoucements)
         })
     },
     loadEvents: () => {
         return new Promise(async (resolve, reject) => {
-            let events = await db.get().collection(collection.EVENT_COLLECTION).find().toArray();
+            let events = await db.get().collection(collection.EVENT_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(events)
         })
     },
@@ -249,7 +259,7 @@ module.exports = {
 
     loadNotes: () => {
         return new Promise(async (resolve, reject) => {
-            let assignments = await db.get().collection(collection.NOTE_COLLECTION).find().toArray();
+            let assignments = await db.get().collection(collection.NOTE_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(assignments)
         })
     },

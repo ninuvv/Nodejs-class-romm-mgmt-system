@@ -276,7 +276,6 @@ router.post("/t_Note", (req, res) => {
 
   }
 
-
   tutorHelper.addNotes(req.body, filename, videoname).then((id) => {
 
     let video = req.files.video
@@ -290,12 +289,14 @@ router.post("/t_Note", (req, res) => {
     res.redirect('/tutor/t_Note')
   })
 })
+
 router.get("/t_delNotes/:noteId", verifyLogin, function (req, res) {
   let noteId = req.params.noteId
   tutorHelper.deleteNote(noteId).then((data) => {
     res.redirect("/tutor/t_Note")
   })
 })
+
 router.get("/t_studentAssignments/:studId", verifyLogin, async (req, res) => {
   let studId = req.params.studId
   // console.log("studeId" + studId)
@@ -363,8 +364,17 @@ router.post("/t_photos", function (req, res) {
   })
 })
 
-router.get("/t_Event", verifyLogin, function (req, res) {
-  res.render('tutor/t_Event', { tutor: true, tutorDetails: req.session.tutor })
+router.get("/t_Event", verifyLogin, async(req, res) =>{
+  let events = await tutorHelper.loadEvents()
+  res.render('tutor/t_Event', { tutor: true, tutorDetails: req.session.tutor,events })
+})
+
+
+router.get("/t_delEvent/:eventId", verifyLogin, function (req, res) {
+  let eventId = req.params.eventId
+  tutorHelper.deleteEvent(eventId).then((data) => {
+    res.redirect("/tutor/t_Event")
+  })
 })
 
 
@@ -372,6 +382,7 @@ router.post("/t_Event", verifyLogin, function (req, res) {
   let pdffilename = ''
   let imagefilename = ''
   let videofilename = ''
+  // console.log(req.body)
 
   if (!req.body.amount) {
     req.body.amount = 0

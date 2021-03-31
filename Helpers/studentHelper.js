@@ -435,13 +435,13 @@ module.exports = {
 
     loadAnnoucements: () => {
         return new Promise(async (resolve, reject) => {
-            let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find().toArray();
+            let annoucements = await db.get().collection(collection.ANNOUCEMENTS_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(annoucements)
         })
     },
     loadEvents: () => {
         return new Promise(async (resolve, reject) => {
-            let events = await db.get().collection(collection.EVENT_COLLECTION).find().toArray();
+            let events = await db.get().collection(collection.EVENT_COLLECTION).find().sort({_id:-1}).toArray();
             resolve(events)
         })
     },
