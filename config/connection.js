@@ -10,8 +10,8 @@ const monogoClient = require('mongodb').MongoClient
 // app.io = require('socket.io')();
 
 module.exports.Connection = function (done) {
-  const url = "mongodb+srv://ninu:dhanyam123@cluster0.rdpuw.mongodb.net/CRMS?retryWrites=true&w=majority"
-  // const url = "mongodb://localhost:27017"
+  // const url = "mongodb+srv://ninu:dhanyam123@cluster0.rdpuw.mongodb.net/CRMS?retryWrites=true&w=majority"
+  const url = "mongodb://localhost:27017"
   const dbname = "CRMS"
 
   //connect to mongo 
