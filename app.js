@@ -138,26 +138,27 @@ db.Connection((err) => {
 })
 
 
-var store = new MongoDBStore({
-  uri: "mongodb://localhost:27017",
-  databaseName: 'CRMS',
-  collection: 'mySessions'
-});
+// var store = new MongoDBStore({
+//   // uri: "mongodb://localhost:27017",
+//   uri = "mongodb+srv://ninu:dhanyam123@cluster0.rdpuw.mongodb.net/CRMS?retryWrites=true&w=majority",
+//   databaseName: 'CRMS',
+//   collection: 'mySessions'
+// });
 
-// Catch errors
-store.on('error', function (error) {
-  console.log(error);
-});
+// // Catch errors
+// store.on('error', function (error) {
+//   console.log(error);
+// });
 
-app.use(session({
-  secret: 'This is a secret',
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-  },
-  store: store,
-  resave: true,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   secret: 'This is a secret',
+//   cookie: {
+//     maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+//   },
+//   store: store,
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 
 
